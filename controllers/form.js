@@ -3,12 +3,16 @@ const FormModel = require("../models/form")
 const saveFormData = async(req, res) => {
     try {
         const body = req.body;
+        const date = (new Date()).toISOString().split("T")[0].split("-").join("");
+        const exstForm = await FormModel.find({refId: {$regex: date}});
+        const refId = date + "R" + (parseInt(exstForm.length)+1);
+
         const newForm = new FormModel({
+            refId: refId,
             data: body.data
         });
         await newForm.save();
         
-        console.log(body)
         res.status(200).json({data: "Form submitted"})
 
     } catch (error) {
