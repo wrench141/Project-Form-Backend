@@ -11,8 +11,8 @@ const sendMail = async(to, subject, body) => {
             }
         });
         const mailOptions = {
-            from: process.env.MAIL, 
-            to: process.env.MAIL, 
+            from: process.env.USER, 
+            to: process.env.USER, 
             subject: subject, 
             text: body
         }

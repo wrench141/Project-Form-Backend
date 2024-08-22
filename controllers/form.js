@@ -14,7 +14,7 @@ const saveFormData = async(req, res) => {
             data: body.data
         });
         await newForm.save();
-        const resp = await sendMail(process.env.MAIL, `New Exit form submitted by ${body.data.name}`,  `
+        const resp = await sendMail(process.env.USER, `New Exit form submitted by ${body.data.name}`,  `
             <p style="font-family:sans-serif">Name: ${body.data.name}</p>
             <p style="font-family:sans-serif">Reference Id: ${refId}</p>
             <a style="font-family:sans-serif" href="${process.env.PROD_URL}/${newForm._id}">Show more details</a>
