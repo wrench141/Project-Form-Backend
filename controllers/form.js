@@ -1,4 +1,6 @@
-const FormModel = require("../models/form")
+const FormModel = require("../models/form");
+const sendMail = require("../utils/mail");
+require("dotenv").config();
 
 const saveFormData = async(req, res) => {
     try {
@@ -12,6 +14,11 @@ const saveFormData = async(req, res) => {
             data: body.data
         });
         await newForm.save();
+        const resp = await sendMail(process.env.MAIL, `New Exit form submitted by ${body.data.name}`,  `
+            <p style="font-family:sans-serif">Name: ${body.data.name}</p>
+            <p style="font-family:sans-serif">Reference Id: ${refId}</p>
+            <a style="font-family:sans-serif" href="${process.env.PROD_URL}/${newForm._id}">Show more details</a>
+        `)
         
         res.status(200).json({data: "Form submitted"})
 

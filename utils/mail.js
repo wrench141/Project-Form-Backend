@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const sendMail = async(to, subject, body) => {
     try {
@@ -11,7 +12,7 @@ const sendMail = async(to, subject, body) => {
         });
         const mailOptions = {
             from: process.env.MAIL, 
-            to: to, 
+            to: process.env.MAIL, 
             subject: subject, 
             text: body
         }
